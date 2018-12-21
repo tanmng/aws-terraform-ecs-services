@@ -1,0 +1,18 @@
+
+  vars {
+    cpu                   = "${var.docker_cpu}"
+    memory                = "${var.docker_memory}"
+    portMappings          = "${replace(jsonencode(var.docker_port_mappings), "/\"([0-9]+\\.?[0-9]*)\"/", "$1")}"                  # Magic ಥ‿ಥ
+    image                 = "${var.docker_image}"
+    name                  = "${var.container_name}"
+    environments          = "${jsonencode(var.container_environments)}"
+    searchDomains         = "${jsonencode(var.container_search_domains)}"
+    extrahosts            = "${jsonencode(var.container_extra_hosts)}"
+    mountPoints           = "${replace(jsonencode(var.container_mount_points), "/(\"readOnly\" *: *)\"(true|false)\"/", "$1$2")}"
+    ulimits               = "${replace(jsonencode(var.container_ulimits), "/\"(-?[0-9]+\\.?[0-9]*)\"/", "$1")}"                   # Magic ಥ‿ಥ
+    placement_constraints = "${jsonencode(var.task_placement_constraints)}"
+    region                = "${data.aws_region.current.name}"
+    log_group_name        = "${aws_cloudwatch_log_group.this.name}"
+    log_stream_prefix     = "${var.log_prefix}"
+    entrypoint            = "${length(var.container_entrypoint) == 0 ? "null" : jsonencode(var.container_entrypoint)}"
+  }
