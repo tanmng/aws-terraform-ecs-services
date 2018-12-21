@@ -38,23 +38,6 @@ variable ordered_placement_strategy {
   default     = []
 }
 
-variable string_indicator {
-  description = "A string to indicate when a numeric string should be a string rather than integer, see https://github.com/hashicorp/terraform/issues/17033 for more details"
-  type        = "string"
-  default     = "STRING:"
-}
-
-variable bool_indicator {
-  description = "Similar to string indicator, we prepend this prefix to indicate any field to be boolean"
-  type        = "string"
-  default     = "BOOL:"
-}
-
-variable hc_grace_period {
-  description = "How long should we wait (in seconds) before starting to accept the healthcheck status from ELB"
-  default     = 0
-}
-
 #--------------------------------------------------------------
 # External resources that were already set up from cluster module
 #--------------------------------------------------------------
@@ -123,4 +106,31 @@ variable log_filter_pattern {
 
 variable target_group_arn {
   description = "ARN of the target group that we wish to connect to our service"
+}
+
+variable service_registries {
+  description = "List of service registries settings for our service"
+  type        = "list"
+  default     = []
+}
+
+#--------------------------------------------------------------
+# Misc variables
+#--------------------------------------------------------------
+
+variable string_indicator {
+  description = "A string to indicate when a numeric string should be a string rather than integer, see https://github.com/hashicorp/terraform/issues/17033 for more details"
+  type        = "string"
+  default     = "STRING:"
+}
+
+variable bool_indicator {
+  description = "Similar to string indicator, we prepend this prefix to indicate any field to be boolean"
+  type        = "string"
+  default     = "BOOL:"
+}
+
+variable hc_grace_period {
+  description = "How long should we wait (in seconds) before starting to accept the healthcheck status from ELB"
+  default     = 0
 }

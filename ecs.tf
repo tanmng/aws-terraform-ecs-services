@@ -30,4 +30,5 @@ resource aws_ecs_service this {
 
   placement_constraints      = "${var.task_placement_constraints}"
   ordered_placement_strategy = "${var.ordered_placement_strategy}"
+  service_registries         = ["${var.service_registries}"]
 }
