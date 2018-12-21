@@ -108,10 +108,16 @@ variable target_group_arn {
   description = "ARN of the target group that we wish to connect to our service"
 }
 
-variable service_registries {
-  description = "List of service registries settings for our service"
-  type        = "list"
-  default     = []
+variable service_discovery_namespace_id {
+  description = "ID of the DNS zone we set up for service discovery"
+  type        = "string"
+  default     = ""
+}
+
+variable service_discovery_name {
+  description = "DNS name to set for our ECS service on service discovery registry"
+  type        = "string"
+  default     = ""
 }
 
 #--------------------------------------------------------------
