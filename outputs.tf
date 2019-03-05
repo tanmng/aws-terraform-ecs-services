@@ -1,10 +1,7 @@
 output service_full_name {
   description = "The full name of the service"
 
-  value = "${join("", concat(
-    aws_ecs_service.this_w_sd.*.name,
-    aws_ecs_service.this_wo_sd.*.name,
-  ))}"
+  value = "${local.service_name}"
 }
 
 output service_log_group {
