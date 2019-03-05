@@ -1,5 +1,8 @@
 locals {
-  service_name = "${var.service_name}-${var.cluster_name}"
+  service_name = "${join("-", compact(list(
+    "${var.service_name}",
+    "${var.include_cluster_name_to_service_name? var.cluster_name : ""}"
+  )))}"
 
   # This is hackery
   first_container      = "${var.task_containers[0]}"
