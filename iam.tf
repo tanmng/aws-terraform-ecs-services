@@ -26,3 +26,25 @@ EOF
     )
   )}"
 }
+
+data aws_iam_policy_document write_log_to_cloudwatch {
+  statement {
+    sid = "WriteToCloudWatch"
+
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+    ]
+
+    resources = [
+      "${aws_cloudwatch_log_group.this.arn}/*",
+    ]
+  }
+}
+
+resource aws_iam_role_policy write_log_to_cloudwatch {
+  name   = "WriteLogToCloudWatch"
+  count  = "${local.task_exec_role_count}"
+  role   = "${aws_iam_role.task_execution_role.id}"
+  policy = "${data.aws_iam_policy_document.write_log_to_cloudwatch.json}"
+}
