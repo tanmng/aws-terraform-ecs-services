@@ -15,6 +15,11 @@ variable service_name {
   type        = "string"
 }
 
+variable include_cluster_name_to_service_name {
+  description = "Specify whether we wish to inlucde the name of ECS cluster into the full service name"
+  default     = true
+}
+
 variable service_launch_type {
   description = "Launch Type of the ECS service, possible values are EC2 and FARGATE"
   type        = "string"
