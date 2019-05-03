@@ -31,6 +31,12 @@ variable service_iam_role_arn {
   default     = ""
 }
 
+variable service_network_configuration {
+  type        = "list"
+  description = "Network configs for the service"
+  default     = []
+}
+
 #--------------------------------------------------------------
 # Container config
 #--------------------------------------------------------------

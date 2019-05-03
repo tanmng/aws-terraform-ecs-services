@@ -44,6 +44,7 @@ resource aws_ecs_service this_wo_sd {
   depends_on                        = ["aws_ecs_task_definition.this_fargate", "aws_ecs_task_definition.this_ec2"]
   health_check_grace_period_seconds = "${var.hc_grace_period}"
   launch_type                       = "${var.service_launch_type}"
+  network_configuration             = "${var.service_network_configuration}"
 
   load_balancer {
     target_group_arn = "${var.target_group_arn}"
@@ -65,6 +66,7 @@ resource aws_ecs_service this_w_sd {
   health_check_grace_period_seconds = "${var.hc_grace_period}"
   launch_type                       = "${var.service_launch_type}"
   iam_role                          = "${var.service_iam_role_arn}"
+  network_configuration             = "${var.service_network_configuration}"
 
   load_balancer {
     target_group_arn = "${var.target_group_arn}"
