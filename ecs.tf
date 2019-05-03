@@ -8,6 +8,10 @@ resource aws_ecs_task_definition this {
   task_role_arn         = "${var.task_iam_role_arn}"
   execution_role_arn    = "${var.task_execution_iam_role_arn}"
 
+  requires_compatibilities = [
+    "${var.service_launch_type}",
+  ]
+
   # Why are these here (╯°□°）╯︵ ┻━┻
   volume = "${var.task_volumes}"
 }
