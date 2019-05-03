@@ -5,9 +5,16 @@ locals {
   )))}"
 
   # Task exec role name
-  task_exec_role_count = "${var.service_launch_type == "FARGATE" && var.task_execution_iam_role_arn == ""? 1 : 0}"
-  task_exec_role_name = "task-execution-${local.service_name}"
 
+  # This logic is rather complicated
+  #     - If there's a role already - DO NOT create
+  #     - Otherwise
+  #         - If task_execution_iam_role_create is set -> create
+  #         - Otherwise
+  #             - If the service is fargate -> we have to create it
+  #             - Otherwise -> DO NOT create
+  task_exec_role_count = "${var.task_execution_iam_role_arn != ""? 0 : (var.task_execution_iam_role_create? 1 : (var.service_launch_type == "FARGATE"? 1 : 0))}"
+  task_exec_role_name = "task-execution-${local.service_name}"
   # This is hackery
   first_container      = "${var.task_containers[0]}"
   first_container_name = "${element(data.template_file.task_container_names.*.rendered, 0)}"

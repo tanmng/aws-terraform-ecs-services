@@ -110,6 +110,11 @@ variable task_execution_iam_role_arn {
   default     = ""
 }
 
+variable task_execution_iam_role_create {
+  description = "Specify whether we should create an IAM role for the task execution"
+  default     = false
+}
+
 #--------------------------------------------------------------
 # Logging related
 #--------------------------------------------------------------
