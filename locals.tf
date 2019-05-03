@@ -5,6 +5,7 @@ locals {
   )))}"
 
   # Task exec role name
+  task_exec_role_count = "${var.service_launch_type == "FARGATE" && var.task_execution_iam_role_arn == ""? 1 : 0}"
   task_exec_role_name = "task-execution-${local.service_name}"
 
   # This is hackery

@@ -1,6 +1,6 @@
 // Only create this if we don't have the role for our task execution
 resource aws_iam_role task_execution_role {
-  count       = "${var.service_launch_type == "FARGATE" && var.task_execution_iam_role_arn == ""? 1 : 0}"
+  count       = "${local.task_exec_role_count}"
   name_prefix = "${substr(local.task_exec_role_name, 0, min(32, length(local.task_exec_role_name)))}"
 
   assume_role_policy = <<EOF
