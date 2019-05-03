@@ -6,6 +6,7 @@ resource aws_ecs_task_definition this {
   container_definitions = "${data.template_file.container_definition.rendered}"
   network_mode          = "${var.docker_network_mode}"
   task_role_arn         = "${var.task_iam_role_arn}"
+  execution_role_arn    = "${var.task_execution_iam_role_arn}"
 
   # Why are these here (╯°□°）╯︵ ┻━┻
   volume = "${var.task_volumes}"
@@ -40,6 +41,7 @@ resource aws_ecs_service this_w_sd {
   depends_on                        = ["aws_ecs_task_definition.this"]
   health_check_grace_period_seconds = "${var.hc_grace_period}"
   launch_type                       = "${var.service_launch_type}"
+  iam_role                          = "${var.service_iam_role_arn}"
 
   load_balancer {
     target_group_arn = "${var.target_group_arn}"

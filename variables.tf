@@ -21,6 +21,11 @@ variable service_launch_type {
   default     = "EC2"
 }
 
+variable service_iam_role_arn {
+  description = "IAM role to assign onto our ECS service, set to empty to use the default one (created by AWS)"
+  default     = ""
+}
+
 #--------------------------------------------------------------
 # Container config
 #--------------------------------------------------------------
@@ -82,6 +87,11 @@ variable task_placement_constraints {
 #--------------------------------------------------------------
 variable task_iam_role_arn {
   description = "IAM role that we can assign on our ECS task, set to empty to ignore"
+  default     = ""
+}
+
+variable task_execution_iam_role_arn {
+  description = "IAM role that we can assign on executor of our ECS task, set to empty to ignore"
   default     = ""
 }
 
