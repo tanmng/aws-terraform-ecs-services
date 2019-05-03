@@ -1,6 +1,7 @@
 output service_full_name {
   description = "The full name of the service"
-  value       = "${aws_ecs_service.this.name}"
+
+  value = "${local.service_name}"
 }
 
 output service_log_group {
