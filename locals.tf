@@ -4,6 +4,9 @@ locals {
     "${var.include_cluster_name_to_service_name? var.cluster_name : ""}"
   )))}"
 
+  # Task exec role name
+  task_exec_role_name = "task-execution-${local.service_name}"
+
   # This is hackery
   first_container      = "${var.task_containers[0]}"
   first_container_name = "${element(data.template_file.task_container_names.*.rendered, 0)}"

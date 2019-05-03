@@ -87,6 +87,16 @@ variable task_placement_constraints {
   default     = []
 }
 
+variable task_fargate_cpu {
+  description = "Amount of CPU we wish to use for the task - only necessary if we are using Fargate"
+  default     = 1024
+}
+
+variable task_fargate_memory {
+  description = "Amount of memory we wish to use for the task - only necessary if we are using Fargate"
+  default     = 2048
+}
+
 #--------------------------------------------------------------
 # IAM role that we can assign on our ECS task, set to empty to ignore
 #--------------------------------------------------------------
