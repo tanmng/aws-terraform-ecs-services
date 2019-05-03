@@ -19,9 +19,7 @@ resource aws_ecs_service this_wo_sd {
   desired_count                     = "${var.task_desired_count}"
   depends_on                        = ["aws_ecs_task_definition.this"]
   health_check_grace_period_seconds = "${var.hc_grace_period}"
-
-  # Just for good measure
-  launch_type = "EC2"
+  launch_type                       = "${var.service_launch_type}"
 
   load_balancer {
     target_group_arn = "${var.target_group_arn}"
@@ -41,9 +39,7 @@ resource aws_ecs_service this_w_sd {
   desired_count                     = "${var.task_desired_count}"
   depends_on                        = ["aws_ecs_task_definition.this"]
   health_check_grace_period_seconds = "${var.hc_grace_period}"
-
-  # Just for good measure
-  launch_type = "EC2"
+  launch_type                       = "${var.service_launch_type}"
 
   load_balancer {
     target_group_arn = "${var.target_group_arn}"

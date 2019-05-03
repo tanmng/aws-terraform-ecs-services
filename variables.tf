@@ -15,6 +15,12 @@ variable service_name {
   type        = "string"
 }
 
+variable service_launch_type {
+  description = "Launch Type of the ECS service, possible values are EC2 and FARGATE"
+  type        = "string"
+  default     = "EC2"
+}
+
 #--------------------------------------------------------------
 # Container config
 #--------------------------------------------------------------
