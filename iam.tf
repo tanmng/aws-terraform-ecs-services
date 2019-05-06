@@ -48,3 +48,18 @@ resource aws_iam_role_policy write_log_to_cloudwatch {
   role   = "${aws_iam_role.task_execution_role.id}"
   policy = "${data.aws_iam_policy_document.write_log_to_cloudwatch.json}"
 }
+
+# When we create attach the list of managed IAM policies that user has specified to the IAM role
+resource aws_iam_role_policy_attachment task_execution_role_attachment {
+  count      = "${local.task_exec_role_count== 1? length(var.task_execution_iam_role_policies) : 0}"
+  role       = "${join("", aws_iam_role.task_execution_role.*.name)}"
+  policy_arn = "${element(var.task_execution_iam_role_policies, count.index)}"
+}
+
+# When we create we create the inline policies with the document provided
+resource aws_iam_role_policy task_execution_role_inline {
+  name_prefix = "Custom-${count.index}"
+  role        = "${join("", aws_iam_role.task_execution_role.*.id)}"
+  count       = "${local.task_exec_role_count== 1? length(var.task_execution_iam_role_inline_policies) : 0}"
+  policy      = "${element(var.task_execution_iam_role_inline_policies, count.index)}"
+}

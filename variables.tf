@@ -121,6 +121,18 @@ variable task_execution_iam_role_create {
   default     = false
 }
 
+variable task_execution_iam_role_inline_policies {
+  type        = "list"
+  description = "List of all JSON policy documents to add as inline policy to the task_execution role if we DO create it"
+  default     = []
+}
+
+variable task_execution_iam_role_policies {
+  type        = "list"
+  description = "List of ARN of policies to attach to our task_execution role if we DO create it"
+  default     = []
+}
+
 #--------------------------------------------------------------
 # Logging related
 #--------------------------------------------------------------
