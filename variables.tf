@@ -158,8 +158,8 @@ variable log_filter_pattern {
   default     = "[message]"
 }
 
-variable target_group_arn {
-  description = "ARN of the target group that we wish to connect to our service"
+variable elb_name {
+  description = "Name of the ELB that we will use"
 }
 
 variable service_discovery_namespace_id {

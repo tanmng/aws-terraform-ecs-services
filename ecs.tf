@@ -47,9 +47,9 @@ resource aws_ecs_service this_wo_sd {
   network_configuration             = "${var.service_network_configuration}"
 
   load_balancer {
-    target_group_arn = "${var.target_group_arn}"
-    container_name   = "${local.first_container_name}"
-    container_port   = "${var.register_port}"
+    elb_name       = "${var.elb_name}"
+    container_name = "${local.first_container_name}"
+    container_port = "${var.register_port}"
   }
 
   placement_constraints      = "${var.task_placement_constraints}"
@@ -69,9 +69,9 @@ resource aws_ecs_service this_w_sd {
   network_configuration             = "${var.service_network_configuration}"
 
   load_balancer {
-    target_group_arn = "${var.target_group_arn}"
-    container_name   = "${local.first_container_name}"
-    container_port   = "${var.register_port}"
+    elb_name       = "${var.elb_name}"
+    container_name = "${local.first_container_name}"
+    container_port = "${var.register_port}"
   }
 
   placement_constraints      = "${var.task_placement_constraints}"
