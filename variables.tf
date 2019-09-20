@@ -32,9 +32,9 @@ variable service_iam_role_arn {
 }
 
 variable service_network_configuration {
-  type        = "list"
+  type        = "map"
   description = "Network configs for the service"
-  default     = []
+  default     = {}
 }
 
 #--------------------------------------------------------------

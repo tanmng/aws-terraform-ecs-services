@@ -2,7 +2,7 @@
 # Task and Service
 #--------------------------------------------------------------
 resource aws_ecs_task_definition this_fargate {
-  count                 = "${var.service_launch_type == "FARGATE"? 1 : 0}"
+  count                 = "${var.service_launch_type == "FARGATE" ? 1 : 0}"
   family                = "${local.service_name}"
   container_definitions = "${data.template_file.container_definition.rendered}"
   network_mode          = "${var.docker_network_mode}"
@@ -25,7 +25,7 @@ resource aws_ecs_task_definition this_ec2 {
   container_definitions = "${data.template_file.container_definition.rendered}"
   network_mode          = "${var.docker_network_mode}"
   task_role_arn         = "${var.task_iam_role_arn}"
-  count                 = "${var.service_launch_type == "EC2"? 1 : 0}"
+  count                 = "${var.service_launch_type == "EC2" ? 1 : 0}"
 
   requires_compatibilities = [
     "${var.service_launch_type}",
@@ -44,7 +44,10 @@ resource aws_ecs_service this_wo_sd {
   depends_on                        = ["aws_ecs_task_definition.this_fargate", "aws_ecs_task_definition.this_ec2"]
   health_check_grace_period_seconds = "${var.hc_grace_period}"
   launch_type                       = "${var.service_launch_type}"
-  network_configuration             = "${var.service_network_configuration}"
+  network_configuration {
+    subnets         = ["${var.service_network_configuration["subnets"]}"]
+    security_groups = ["${var.service_network_configuration["security_groups"]}"]
+  }
 
   load_balancer {
     target_group_arn = "${var.target_group_arn}"
@@ -66,7 +69,10 @@ resource aws_ecs_service this_w_sd {
   health_check_grace_period_seconds = "${var.hc_grace_period}"
   launch_type                       = "${var.service_launch_type}"
   iam_role                          = "${var.service_iam_role_arn}"
-  network_configuration             = "${var.service_network_configuration}"
+  network_configuration {
+    subnets         = ["${var.service_network_configuration["subnets"]}"]
+    security_groups = ["${var.service_network_configuration["security_groups"]}"]
+  }
 
   load_balancer {
     target_group_arn = "${var.target_group_arn}"
